@@ -26,7 +26,7 @@ cross_entropy = -tf.reduce_sum(y_ * tf.log(y))
 train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
 #初始化之前创建的变量的操作
-init = tf.initialize_all_variables()
+init = tf.global_variables_initializer()
 
 #启动初始化
 sess = tf.Session()
@@ -44,4 +44,4 @@ correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
 
 #在session中启动accuracy，输入是MNIST中的测试集
-print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+print("\nThe result is =>", sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
